@@ -3,14 +3,19 @@ import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import CustomHeaderButton from "../components/HeaderButton";
 import {Button, Platform, StyleSheet, ScrollView, Text, TextInput, View} from "react-native";
 import Colors from "../constants/Colors";
+import {useDispatch} from "react-redux";
+import * as placesActions from '../store/actions/places';
 
 const NewPlaceScreen = props => {
     const [title, setTitle] = useState('');
 
     const titleChangeHandler = text => setTitle(text);
 
-    const savePlaceHandler = () => {
+    const dispatch = useDispatch();
 
+    const savePlaceHandler = () => {
+        dispatch(placesActions.addPlace(title));
+        props.navigation.goBack();
     };
 
     return (
