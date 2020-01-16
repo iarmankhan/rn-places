@@ -27,7 +27,8 @@
     "expo-image-picker": "~8.0.1",
     "expo-permissions": "~8.0.0",
     "expo-file-system": "~8.0.0",
-    "expo-sqlite": "~8.0.0"
+    "expo-sqlite": "~8.0.0",
+    "expo-location": "~8.0.0"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.0.0",
