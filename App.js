@@ -7,7 +7,7 @@ import PlacesNavigator from "./navigation/PlacesNavigator";
 import placesReducer from './store/reducers/places'
 
 const rootReducer = combineReducers({
-  place: placesReducer
+  places: placesReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
