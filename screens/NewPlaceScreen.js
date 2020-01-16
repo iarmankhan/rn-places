@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import CustomHeaderButton from "../components/HeaderButton";
 import {Button, Platform, StyleSheet, ScrollView, Text, TextInput, View} from "react-native";
@@ -10,20 +10,25 @@ import LocationPicker from "../components/LocationPicker";
 
 const NewPlaceScreen = props => {
     const [title, setTitle] = useState('');
-    const [selectedImage, setSelectedImage] = useState('');
+    const [selectedImage, setSelectedImage] = useState();
+    const [selectedLocation, setSelectedLocation] = useState();
 
     const titleChangeHandler = text => setTitle(text);
 
     const dispatch = useDispatch();
 
     const savePlaceHandler = () => {
-        dispatch(placesActions.addPlace(title, selectedImage));
+        dispatch(placesActions.addPlace(title, selectedImage, selectedLocation));
         props.navigation.goBack();
     };
 
     const imageTakenHandler = imagePath => {
         setSelectedImage(imagePath);
     };
+
+    const locationPickedHandler = useCallback(location => {
+        setSelectedLocation(location);
+    }, [setSelectedLocation]);
 
     return (
         <ScrollView>
@@ -33,7 +38,7 @@ const NewPlaceScreen = props => {
                 <TextInput style={styles.textInput} onChangeText={titleChangeHandler} value={title} />
             </View>
                 <ImgPicker onImageTaken={imageTakenHandler} />
-                <LocationPicker navigation={props.navigation}/>
+                <LocationPicker navigation={props.navigation} onLocationPicked={locationPickedHandler}/>
             <Button title="Save Place" onPress={savePlaceHandler} color={Colors.primary} />
             </View>
         </ScrollView>
