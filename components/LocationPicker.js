@@ -3,10 +3,11 @@ import {View, ActivityIndicator, Alert, StyleSheet, Button, Text} from "react-na
 import Colors from "../constants/Colors";
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
+import MapPreview from "./MapPreview";
 
 const LocationPicker = props => {
     const [isFetchingState, setIsFetchingState] = useState(false);
-    const [pickedLocation, setPickedLocation] = useState();
+    const [pickedLocation, setPickedLocation] = useState({});
 
     const verifyPermissions = async () => {
         const result = await Permissions.askAsync(Permissions.LOCATION);
@@ -42,12 +43,12 @@ const LocationPicker = props => {
 
     return (
       <View style={styles.locationPicker}>
-          <View style={styles.mapPreview}>
+          <MapPreview style={styles.mapPreview} location={pickedLocation}>
               { isFetchingState
                   ? <ActivityIndicator color={Colors.primary} size="large" />
                   : <Text>No Location chosen yet!</Text>
               }
-          </View>
+          </MapPreview>
           <Button title="Get User Location" color={Colors.primary} onPress={getLocationHandler} />
       </View>
     );
@@ -63,8 +64,6 @@ const styles = StyleSheet.create({
         height: 150,
         borderColor: '#ccc',
         borderWidth: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
     }
 });
 
