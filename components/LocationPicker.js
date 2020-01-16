@@ -7,7 +7,7 @@ import MapPreview from "./MapPreview";
 
 const LocationPicker = props => {
     const [isFetchingState, setIsFetchingState] = useState(false);
-    const [pickedLocation, setPickedLocation] = useState({});
+    const [pickedLocation, setPickedLocation] = useState();
 
     const verifyPermissions = async () => {
         const result = await Permissions.askAsync(Permissions.LOCATION);
