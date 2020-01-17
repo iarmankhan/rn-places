@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from "react";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import CustomHeaderButton from "../components/HeaderButton";
-import {Button, Platform, StyleSheet, ScrollView, Text, TextInput, View} from "react-native";
+import {Button, Platform, StyleSheet, ScrollView, Text, TextInput, View, Alert} from "react-native";
 import Colors from "../constants/Colors";
 import {useDispatch} from "react-redux";
 import * as placesActions from '../store/actions/places';
@@ -18,8 +18,12 @@ const NewPlaceScreen = props => {
     const dispatch = useDispatch();
 
     const savePlaceHandler = () => {
-        dispatch(placesActions.addPlace(title, selectedImage, selectedLocation));
-        props.navigation.goBack();
+        try{
+            dispatch(placesActions.addPlace(title, selectedImage, selectedLocation));
+            props.navigation.goBack();
+        }catch (e) {
+            Alert.alert('Something went wrong!', 'Please try again.', [{text: 'Okay'}])
+        }
     };
 
     const imageTakenHandler = imagePath => {

@@ -7,7 +7,6 @@ export const SET_PLACES = 'SET_PLACES';
 
 export const setPlaces = () => {
     return async (dispatch, getState) => {
-
         try{
             const dbResult = await fetchPlaces();
             dispatch({
@@ -56,10 +55,7 @@ export const addPlace = (title, image, location) => {
                 }
             });
         }catch (e) {
-            console.log(e);
             throw e;
         }
-
-
     };
 };

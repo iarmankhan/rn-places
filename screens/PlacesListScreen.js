@@ -1,5 +1,5 @@
 import React, {useEffect} from "react";
-import {FlatList, Platform, Text, View} from "react-native";
+import {Alert, FlatList, Platform, Text, View} from "react-native";
 import {HeaderButtons, Item} from "react-navigation-header-buttons";
 import CustomHeaderButton from "../components/HeaderButton";
 import {useDispatch, useSelector} from "react-redux";
@@ -11,8 +11,16 @@ const PlacesListScreen = props => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(placesActions.setPlaces());
+        try{
+            dispatch(placesActions.setPlaces());
+        }catch (e) {
+            Alert.alert('Something went wrong!', 'Please try again.', [{text: 'Okay'}])
+        }
     }, [dispatch]);
+
+    if(places.length === 0){
+        return (<View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}><Text>No Places Found!</Text></View>)
+    }
 
     return (
         <FlatList
